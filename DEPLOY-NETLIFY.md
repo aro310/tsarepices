@@ -6,7 +6,6 @@ Le fichier `netlify.toml`, à la racine du projet, définit :
 
 - Dossier de base : `frontend`
 - Commande : `npm run build -- --webpack`
-- Dossier de publication : `.next` (relatif au dossier de base)
 - Node.js : `24`
 
 Netlify détecte Next.js et installe automatiquement son adaptateur OpenNext.
