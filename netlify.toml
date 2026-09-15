@@ -1,0 +1,12 @@
+[build]
+  base = "frontend"
+  command = "npm run build -- --webpack"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# Netlify automatically installs the current OpenNext adapter for Next.js.
+# Configure external Flask service URLs in the Netlify environment settings:
+# CONTACT_SERVICE_URL, CATALOG_SERVICE_URL, ORDERS_SERVICE_URL.
+# Do not use localhost URLs in production.

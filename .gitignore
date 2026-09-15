@@ -1,0 +1,16 @@
+# Netlify local project association and generated deployment files
+.netlify/
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+
+# Python microservice local data
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.db
+*.sqlite
+*.sqlite3

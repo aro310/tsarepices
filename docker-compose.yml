@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    container_name: tsarepices_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:3000
+      - CATALOG_SERVICE_URL=http://catalog:5001
+      - ORDERS_SERVICE_URL=http://orders:5002
+      - CONTACT_SERVICE_URL=http://contact:5003
+    depends_on:
+      - catalog
+      - orders
+      - contact
+    networks:
+      - tsarepices-network
+
+  catalog:
+    build:
+      context: ./services/catalog-service
+    container_name: tsarepices_catalog
+    ports:
+      - "5001:5001"
+    environment:
+      - PORT=5001
+      - DEBUG=False
+    networks:
+      - tsarepices-network
+
+  orders:
+    build:
+      context: ./services/orders-service
+    container_name: tsarepices_orders
+    ports:
+      - "5002:5002"
+    environment:
+      - PORT=5002
+      - DEBUG=False
+      - DATABASE_URL=sqlite:////app/instance/orders.db
+    volumes:
+      - orders_data:/app/instance
+    networks:
+      - tsarepices-network
+
+  contact:
+    build:
+      context: ./services/contact-service
+    container_name: tsarepices_contact
+    ports:
+      - "5003:5003"
+    environment:
+      - PORT=5003
+      - DEBUG=False
+      - DATABASE_URL=sqlite:////app/instance/contact.db
+    volumes:
+      - contact_data:/app/instance
+    networks:
+      - tsarepices-network
+
+networks:
+  tsarepices-network:
+    driver: bridge
+
+volumes:
+  orders_data:
+  contact_data:
